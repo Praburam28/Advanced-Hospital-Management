@@ -1,6 +1,5 @@
 🏥 Hospital Management System API
 
-
 📌 Project Overview
 
 This is a FastAPI-based Hospital Management System Backend that handles:
