@@ -1,12 +1,6 @@
 🏥 Hospital Management System API
 
 
-
-
-
-
-
-
 📌 Project Overview
 
 This is a FastAPI-based Hospital Management System Backend that handles:
@@ -175,6 +169,8 @@ Frontend UI (React/Next.js) 🎨
 Docker deployment 🐳
 Cloud hosting ☁️
 Redis caching ⚡
+
+
 👨‍💻 Author
 
 Prabu Ram
