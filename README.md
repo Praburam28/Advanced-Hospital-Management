@@ -1,285 +1,180 @@
-🏥 Advanced Hospital Management System
-🚀 FastAPI + MySQL Backend Project
+🏥 Hospital Management System API
+
+
+
+
+
+
+
+
 📌 Project Overview
 
-The Advanced Hospital Management System is a backend application developed using FastAPI and MySQL.
+This is a FastAPI-based Hospital Management System Backend that handles:
 
-This project demonstrates:
-
-✅ Authentication & Authorization
-✅ Appointment Management
-✅ RBAC (Role-Based Access Control)
-✅ File Upload Handling
-✅ Pagination & Filtering
-✅ Service Layer Architecture
-✅ Exception Handling
-✅ JWT Security
-✅ MySQL Database Integration
-
-✨ Features Implemented
-🔐 1. Advanced Authentication System
-✅ JWT Authentication
-✅ Password Hashing using bcrypt
-✅ Login & Registration
-✅ Forgot Password API
-✅ Reset Password Token
-👥 2. Role-Based Access Control (RBAC)
-Supported Roles
-Role	Access
-👨‍💼 Admin	Full Access
-👨‍⚕️ Doctor	Appointment Access
-🧑 Patient	Appointment Booking
-📅 3. Appointment Management
-Features
-✅ Create Appointment
-✅ Prevent Double Booking
-✅ Appointment Status
-✅ Time Slot Validation
-✅ Appointment Filtering
-Appointment Statuses
-🟡 Pending
-🟢 Approved
-🔴 Rejected
-🔵 Completed
-🔍 4. Search & Filtering
-Doctor Search
-Search by name
-Search by specialization
-Appointment Filters
-Filter by date
-Filter by status
-Filter by patient
-📄 5. Pagination & Sorting
-
-Implemented for all listing APIs.
-
-Example
-/doctors/list?skip=0&limit=5
-🧱 6. Service Layer Architecture
-
-Project follows clean architecture.
-
-routers → services → models → database
-
-All business logic moved to service layer.
-
-📁 7. Enhanced File Handling
-Supported Formats
-📄 PDF
-🖼️ JPG
-🖼️ PNG
-Features
-File validation
-File size validation
-Metadata storage
-⚡ 8. Background Tasks
-
-Implemented using FastAPI BackgroundTasks.
-
-Used for:
-
-Email simulation
-Forgot password processing
-Async tasks
-📦 9. Standard API Response
-{
-  "success": true,
-  "message": "Operation Successful",
-  "data": {}
-}
-❌ 10. Global Exception Handling
-
-Handled:
-
-Validation Errors
-Database Errors
-Unauthorized Access
-Internal Server Errors
-🧪 11. Unit Testing
-
-Implemented using:
-
-pytest
-🗂️ Project Structure
+👨‍⚕️ Doctor Management
+🧑 Patient Management
+📅 Appointment Scheduling
+🔐 JWT Authentication
+🛡️ Role-Based Access Control (Admin / Doctor / Patient)
+📂 File Upload System
+🔍 Advanced Search & Filtering
+📊 Pagination & Sorting
+⏳ Background Tasks
+🔁 Password Reset System
+🚀 Features
+🔐 Authentication
+User Registration
+Secure Login (JWT Token)
+Password Hashing (bcrypt)
+Forgot Password & Reset Password
+👥 Role-Based Access Control (RBAC)
+Admin → Full access
+Doctor → Manage appointments
+Patient → Book appointments
+👨‍⚕️ Doctor Module
+Add doctor (Admin only)
+Search doctors by name/specialization
+Pagination & sorting
+📅 Appointment Module
+Book appointments
+Prevent double booking
+Status tracking:
+Pending
+Approved
+Rejected
+Completed
+Filter by date, status, patient
+📂 File Upload
+Upload medical reports
+File type validation (PDF, PNG, JPG)
+File size validation (2MB limit)
+Store metadata in database
+⚡ Advanced Features
+Background tasks (notifications)
+Global error handling
+Clean architecture (Service Layer)
+API response standardization
+🏗️ Project Structure
 advanced-hospital-management/
 │
 ├── app/
 │   ├── main.py
-│   │
-│   ├── database/
-│   │   └── db.py
-│   │
+│   ├── config/
+│   │   └── database.py
+│   ├── core/
+│   │   ├── security.py
+│   │   └── dependencies.py
 │   ├── models/
 │   │   ├── user.py
 │   │   ├── doctor.py
-│   │   ├── patient.py
 │   │   ├── appointment.py
 │   │   └── file.py
-│   │
 │   ├── schemas/
-│   │   ├── user_schema.py
+│   │   ├── auth_schema.py
 │   │   ├── doctor_schema.py
-│   │   ├── patient_schema.py
 │   │   └── appointment_schema.py
-│   │
 │   ├── routers/
 │   │   ├── auth_router.py
 │   │   ├── doctor_router.py
-│   │   └── appointment_router.py
-│   │
+│   │   ├── appointment_router.py
+│   │   └── file_router.py
 │   ├── services/
 │   │   ├── auth_service.py
-│   │   ├── doctor_service.py
 │   │   └── appointment_service.py
-│   │
-│   ├── utils/
-│   │   ├── auth.py
-│   │   ├── response.py
-│   │   ├── exceptions.py
-│   │   └── file_handler.py
-│   │
-│   ├── static/
-│   └── templates/
 │
-├── tests/
+├── uploads/
 ├── requirements.txt
-├── README.md
-└── .env
+└── README.md
 ⚙️ Installation & Setup
-🔹 Step 1 — Create Virtual Environment
+1️⃣ Clone the project
+git clone https://github.com/your-username/hospital-management.git
+cd hospital-management
+2️⃣ Create virtual environment
 python -m venv venv
-🔹 Step 2 — Activate Environment
+
+Activate:
+
 Windows
+
 venv\Scripts\activate
-🔹 Step 3 — Install Requirements
+3️⃣ Install dependencies
 pip install -r requirements.txt
-🛢️ Database Setup
-Create MySQL Database
-CREATE DATABASE hospital_db;
-🔑 Configure .env
-SECRET_KEY=mysecretkey
-ALGORITHM=HS256
-DATABASE_URL=mysql+pymysql://root:password@localhost/hospital_db
-
-Replace:
-
-password
-
-with your MySQL password.
-
-▶️ Run Application
-python -m uvicorn app.main:app --reload
-🌐 Swagger API Documentation
-
-Open:
-
+4️⃣ Run the project
+uvicorn app.main:app --reload
+5️⃣ Open API Docs
 http://127.0.0.1:8000/docs
-🔗 API Endpoints
-🔐 Authentication APIs
-Method	Endpoint	Description
-POST	/auth/register	Register User
-POST	/auth/login	Login User
-POST	/auth/forgot-password	Forgot Password
-POST	/auth/reset-password	Reset Password
-👨‍⚕️ Doctor APIs
-Method	Endpoint	Description
-POST	/doctors/add	Add Doctor
-GET	/doctors/list	Get Doctors
-📅 Appointment APIs
-Method	Endpoint	Description
-POST	/appointments/create	Create Appointment
-GET	/appointments/list	Get Appointments
 🔐 Authentication Flow
-Step 1 — Register
+Register User
+POST /auth/register
+Login
+POST /auth/login
+
+Response:
+
 {
-  "name": "Admin",
-  "email": "admin@gmail.com",
-  "password": "admin123",
-  "role": "Admin"
+  "access_token": "JWT_TOKEN",
+  "token_type": "bearer"
 }
-Step 2 — Login
+🔒 Swagger Authorization
 
-Use:
+Click Authorize in Swagger UI:
 
-username: admin@gmail.com
-password: admin123
-Step 3 — Copy JWT Token
+Bearer YOUR_JWT_TOKEN
+👨‍⚕️ Doctor API
+Add Doctor
+POST /doctors
+Search Doctor
+GET /doctors?search=cardiology
+📅 Appointment API
+Book Appointment
+POST /appointments
+Filter Appointments
+GET /appointments?status=Pending
+GET /appointments?appointment_date=2026-05-07
+📂 File Upload API
+POST /files/upload
 
-Example:
+Supported:
 
-Bearer eyJhbGciOiJIUzI1NiIs...
-Step 4 — Authorize Swagger
+PNG
+JPG
+PDF
 
-Click:
+Max size:
 
-Authorize
+2 MB
+🧪 Testing Tools
+Swagger UI → /docs
+Postman
+FastAPI auto-generated docs
+⚠️ Error Handling
+Error	Meaning
+401	Unauthorized
+403	Access Denied (RBAC)
+422	Validation Error
+500	Server Error
+📊 Example Workflow
+Register Admin
+Login → get JWT
+Authorize Swagger
+Add Doctor
+Register Patient
+Book Appointment
+Update Status
+Upload File
+🧠 Tech Stack
+⚡ FastAPI
+🐍 Python
+🗄️ SQLAlchemy
+🗃️ SQLite
+🔐 JWT Authentication
+🔒 Passlib (bcrypt)
+📌 Future Improvements
+Email notifications 📧
+Frontend UI (React/Next.js) 🎨
+Docker deployment 🐳
+Cloud hosting ☁️
+Redis caching ⚡
+👨‍💻 Author
 
-Paste token.
-
-📅 Sample Appointment Request
-{
-  "doctor_name": "Guru",
-  "patient_name": "Prabu",
-  "appointment_date": "2026-05-06",
-  "appointment_time": "11:00 AM"
-}
-🛡️ Security Features
-
-✅ JWT Authentication
-✅ Password Hashing
-✅ Role-Based Access
-✅ Protected APIs
-✅ Secure Token Handling
-
-🚀 Future Improvements
-📧 Email Integration
-⚡ Redis Caching
-🐳 Docker Deployment
-🌐 React Frontend
-🔔 Notification System
-💳 Payment Integration
-📸 Output Screenshots
-
-Add:
-
-Swagger UI Screenshot
-Login API Screenshot
-Appointment API Screenshot
-Database Screenshot
-🎯 Assignment Deliverables Covered
-Requirement	Status
-JWT Authentication	✅
-Password Hashing	✅
-Forgot Password	✅
-RBAC	✅
-Appointment Management	✅
-Double Booking Prevention	✅
-Search & Filtering	✅
-Pagination	✅
-Service Layer Architecture	✅
-File Upload Validation	✅
-Background Tasks	✅
-API Standardization	✅
-Exception Handling	✅
-Unit Testing	✅
-👨‍💻 Developed By
 Prabu Ram
-
-Backend Developer — FastAPI Project
-
-⭐ Conclusion
-
-This project demonstrates real-world backend development using:
-
-FastAPI
-SQLAlchemy
-JWT Security
-RBAC
-MySQL
-Clean Architecture
-Business Logic Implementation
-API Validation
-Production-style Backend Structure
-🎉 Thank You
-
-⭐ Advanced Hospital Management System ⭐
